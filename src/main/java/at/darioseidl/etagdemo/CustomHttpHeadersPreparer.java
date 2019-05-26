@@ -1,6 +1,5 @@
 package at.darioseidl.etagdemo;
 
-import org.springframework.aop.support.AopUtils;
 import org.springframework.core.convert.support.ConfigurableConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.data.auditing.AuditableBeanWrapper;
@@ -40,7 +39,7 @@ public class CustomHttpHeadersPreparer extends HttpHeadersPreparer {
         Assert.notNull(value, "Entity value must not be null!");
 
         // Unproxy dynamic JDK proxy to be able to get version information for ETag
-        if (AopUtils.isJdkDynamicProxy(value) && value instanceof TargetAware) {
+        if (value instanceof TargetAware) {
             TargetAware targetAware = (TargetAware) value;
             value = targetAware.getTarget();
         }
