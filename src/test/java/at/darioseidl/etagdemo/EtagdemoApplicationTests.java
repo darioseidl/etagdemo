@@ -84,10 +84,10 @@ public class EtagdemoApplicationTests {
 
     public HttpEntity headers(String body) {
         List<MediaType> accept = new ArrayList<>();
-        accept.add(MediaType.APPLICATION_JSON_UTF8);
+        accept.add(MediaType.APPLICATION_JSON);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(accept);
 
         return new HttpEntity<>(body, headers);

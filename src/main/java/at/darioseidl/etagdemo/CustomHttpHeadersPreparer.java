@@ -63,7 +63,7 @@ public class CustomHttpHeadersPreparer extends HttpHeadersPreparer {
         }
     }
 
-    private Optional<AuditableBeanWrapper> getAuditableBeanWrapper(Object source) {
+    private Optional<AuditableBeanWrapper<Object>> getAuditableBeanWrapper(Object source) {
         return auditableBeanWrapperFactory.getBeanWrapperFor(source);
     }
 
