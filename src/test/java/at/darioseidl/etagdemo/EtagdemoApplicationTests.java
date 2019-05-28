@@ -33,23 +33,34 @@ public class EtagdemoApplicationTests {
 
     @Test
     public void patchChildTest() {
-        ResponseEntity<Child> responseEntity =
-                restTemplate.exchange("http://localhost:" + port + "/children/1/", HttpMethod.PATCH, headers(body().toString()), Child.class);
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("http://localhost:" + port + "/children/1/", HttpMethod.PATCH, headers(body("willy").toString()), String.class);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        System.out.println(responseEntity.getBody());
     }
 
     @Test
     public void patchChildWithProjectionTest() {
-        ResponseEntity<Child> responseEntity =
-                restTemplate.exchange("http://localhost:" + port + "/children/1/?projection=with-parent", HttpMethod.PATCH, headers(body().toString()), Child.class);
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("http://localhost:" + port + "/children/1/?projection=with-parent", HttpMethod.PATCH, headers(body("bert").toString()), String.class);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        System.out.println(responseEntity.getBody());
     }
 
-    public JSONObject body() {
+    @Test
+    public void putChildWithProjectionTest() {
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("http://localhost:" + port + "/children/1/?projection=with-parent", HttpMethod.PUT, headers(body("alfred").toString()), String.class);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        System.out.println(responseEntity.getBody());
+    }
+
+    public JSONObject body(String name) {
         JSONObject body = new JSONObject();
-        body.put("name", "bert");
+        body.put("name", name);
         return body;
     }
 
