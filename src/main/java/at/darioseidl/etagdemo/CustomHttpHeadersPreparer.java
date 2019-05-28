@@ -13,7 +13,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 
-import java.lang.reflect.Field;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Optional;
@@ -51,16 +50,6 @@ public class CustomHttpHeadersPreparer extends HttpHeadersPreparer {
         getLastModifiedInMilliseconds(value).ifPresent(it -> headers.setLastModified(it));
 
         return headers;
-    }
-
-    private Object getPrivateField(Object target, String fieldName) {
-        try {
-            Field field = target.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);
-            return field.get(target);
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
-        }
     }
 
     private Optional<AuditableBeanWrapper<Object>> getAuditableBeanWrapper(Object source) {
