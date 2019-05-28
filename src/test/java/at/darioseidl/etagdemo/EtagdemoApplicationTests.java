@@ -34,7 +34,7 @@ public class EtagdemoApplicationTests {
     @Test
     public void patchChildTest() {
         ResponseEntity<String> responseEntity =
-                restTemplate.exchange("http://localhost:" + port + "/children/1/", HttpMethod.PATCH, headers(body("willy").toString()), String.class);
+                restTemplate.exchange("http://localhost:" + port + "/children/1/", HttpMethod.PATCH, headers(body("patch").toString()), String.class);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         System.out.println(responseEntity.getBody());
@@ -43,7 +43,7 @@ public class EtagdemoApplicationTests {
     @Test
     public void patchChildWithProjectionTest() {
         ResponseEntity<String> responseEntity =
-                restTemplate.exchange("http://localhost:" + port + "/children/1/?projection=with-parent", HttpMethod.PATCH, headers(body("bert").toString()), String.class);
+                restTemplate.exchange("http://localhost:" + port + "/children/1/?projection=with-parent", HttpMethod.PATCH, headers(body("patch-with-projection").toString()), String.class);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         System.out.println(responseEntity.getBody());
@@ -52,7 +52,25 @@ public class EtagdemoApplicationTests {
     @Test
     public void putChildWithProjectionTest() {
         ResponseEntity<String> responseEntity =
-                restTemplate.exchange("http://localhost:" + port + "/children/1/?projection=with-parent", HttpMethod.PUT, headers(body("alfred").toString()), String.class);
+                restTemplate.exchange("http://localhost:" + port + "/children/1/?projection=with-parent", HttpMethod.PUT, headers(body("put-with-projection").toString()), String.class);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        System.out.println(responseEntity.getBody());
+    }
+
+    @Test
+    public void patchChildWithOpenProjectionTest() {
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("http://localhost:" + port + "/children/1/?projection=with-value", HttpMethod.PATCH, headers(body("patch-with-projection").toString()), String.class);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        System.out.println(responseEntity.getBody());
+    }
+
+    @Test
+    public void putChildWithOpenProjectionTest() {
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange("http://localhost:" + port + "/children/1/?projection=with-value", HttpMethod.PUT, headers(body("put-with-projection").toString()), String.class);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         System.out.println(responseEntity.getBody());
